@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--
+  数据库连接池
+  对应扫描的db.properties
+  -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.Driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--配置SessionFactory-->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--配置别名-->
+        <property name="typeAliasesPackage" value="com.tian.ssm.bean"/>
+        <property name="mapperLocations" value="classpath*:com/tian/ssm/mapper/*.xml"/>
+    </bean>
+
+    <!--扫描接口文件-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--配置扫描包-->
+        <property name="basePackage" value="com.tian.ssm.mapper"/>
+        <!--配置sessionFactory名字-->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+    </bean>
+
+    <!--创建事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--adviser顾问-->
+    <tx:advice id="mybatisAdvisor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" read-only="false"/>
+            <tx:method name="delete*" read-only="false"/>
+            <tx:method name="update*" read-only="false"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--设置切面-->
+    <aop:config>
+        <aop:pointcut id="mapperPointCut"
+                      expression="execution(* com.tian.ssm.mapper.*.*(..))"/>
+        <aop:advisor advice-ref="mybatisAdvisor" pointcut-ref="mapperPointCut"/>
+    </aop:config>
+
+    <!--扫描装载mybatis的Mapper对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--配置扫描包-->
+        <property name="basePackage" value="com.tian.ssm"/>
+        <!--配置sessionFactory名字-->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+    </bean>
+
+
+
+
+</beans>
