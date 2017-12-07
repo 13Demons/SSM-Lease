@@ -11,19 +11,16 @@ import java.util.List;
 /**
  * Created by dllo on 17/12/6.
  */
-@Service
+@Service("adminInfo")
 public class AdminInfoServiceImpl implements AdminInfoService {
 
     @Resource
     private AdminInfoMapper adminInfoMapper;
 
-    @Override
-    public List<AdminInfo> loginAdmin(AdminInfo adminInfo) {
-        return adminInfoMapper.loginAdmin(adminInfo);
-    }
 
     @Override
-    public List<AdminInfo> findAllAdmin() {
-        return adminInfoMapper.findAllAdmin();
+    public AdminInfo loginAdmin(AdminInfo adminInfo) {
+
+        return adminInfoMapper.loginAdmin(adminInfo);
     }
 }

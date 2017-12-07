@@ -54,7 +54,7 @@
     <!--设置切面-->
     <aop:config>
         <aop:pointcut id="mapperPointCut"
-                      expression="execution(* com.tian.ssm.mapper.*.*(..))"/>
+                      expression="execution(* com.tian.ssm.service.*.*(..))"/>
         <aop:advisor advice-ref="mybatisAdvisor" pointcut-ref="mapperPointCut"/>
     </aop:config>
 

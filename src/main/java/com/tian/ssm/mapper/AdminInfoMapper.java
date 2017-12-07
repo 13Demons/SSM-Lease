@@ -9,7 +9,5 @@ public interface AdminInfoMapper {
 
     int insertSelective(AdminInfo record);
 
-    List<AdminInfo> loginAdmin(AdminInfo adminInfo);
-
-    List<AdminInfo> findAllAdmin();
+    AdminInfo loginAdmin(AdminInfo adminInfo);
 }

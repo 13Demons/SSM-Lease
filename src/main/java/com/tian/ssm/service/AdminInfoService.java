@@ -8,7 +8,7 @@ import java.util.List;
  * Created by dllo on 17/12/6.
  */
 public interface AdminInfoService {
-    List<AdminInfo>loginAdmin(AdminInfo adminInfo);
 
-    List<AdminInfo> findAllAdmin();
+    AdminInfo loginAdmin(AdminInfo adminInfo);
+
 }

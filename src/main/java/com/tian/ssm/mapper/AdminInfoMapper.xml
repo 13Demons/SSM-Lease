@@ -69,14 +69,8 @@
       </if>
     </trim>
   </insert>
-
-
-    <select id="loginAdmin" resultType="com.tian.ssm.bean.AdminInfo">
-      SELECT *FROM admin_info WHERE name=#{name} AND password=#{password}
-    </select>
-
-  <select id="findAllAdmin" resultType="com.tian.ssm.bean.AdminInfo">
-      SELECT *FROM admin_info
+  <select id="loginAdmin"  resultMap="BaseResultMap">
+    SELECT *FROM admin_info WHERE name=#{name}
   </select>
 
 

@@ -1,21 +1,63 @@
 package com.tian.ssm.bean;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Date;
 
 public class AdminInfo {
+
     private Integer adminId;
 
     private String adminCode;
 
+
+
     private String password;
 
     private String name;
+
+
 
     private String telephone;
 
     private String email;
 
     private Date enrolldate;
+
+    public AdminInfo() {
+    }
+
+    public AdminInfo(String name) {
+        this.name = name;
+    }
+
+    public AdminInfo(String password, String name) {
+        this.password = password;
+        this.name = name;
+    }
+
+    public AdminInfo(Integer adminId, String adminCode, String password, String name, String telephone, String email, Date enrolldate) {
+        this.adminId = adminId;
+        this.adminCode = adminCode;
+        this.password = password;
+        this.name = name;
+        this.telephone = telephone;
+        this.email = email;
+        this.enrolldate = enrolldate;
+    }
+
+    @Override
+    public String toString() {
+        return "AdminInfo{" +
+                "adminId=" + adminId +
+                ", adminCode='" + adminCode + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", enrolldate=" + enrolldate +
+                '}';
+    }
 
     public Integer getAdminId() {
         return adminId;
