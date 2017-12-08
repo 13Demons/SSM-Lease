@@ -2,6 +2,7 @@ package com.tian.ssm.mapper;
 
 
 import com.tian.ssm.bean.AdminInfo;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,12 +18,26 @@ import javax.annotation.Resource;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:SSM-mybatis.xml")
 public class AdminInfoMapperTest {
+
+
+
     @Resource
     private AdminInfoMapper adminInfoMapper;
+
+
 
     @Test
     public void loginAdmin() throws Exception {
         System.out.println(adminInfoMapper.loginAdmin(new AdminInfo("123","123")));
     }
 
+    @Test
+    public void findAllRole() throws Exception {
+      adminInfoMapper.findAllRole().forEach(System.out::println);
+    }
+
+    @Test
+    public void delete() throws Exception {
+        adminInfoMapper.delete(1);
+    }
 }

@@ -23,4 +23,16 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 
         return adminInfoMapper.loginAdmin(adminInfo);
     }
+
+    @Override
+    public List<AdminInfo> findAllRole() {
+        return adminInfoMapper.findAllRole();
+    }
+
+    @Override
+    public void delete(Integer adminId) {
+        adminInfoMapper.delete(adminId);
+    }
+
+
 }

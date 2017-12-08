@@ -46,13 +46,12 @@
          <!--!!!! Table Configurations !!!! -->
 
 
-        <table tableName="admin_info"
-               domainObjectName="AdminInfo"
+        <table tableName="module_info"
+               domainObjectName="ModuleInfo"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                enableUpdateByExample="false"/>
-
 
 
 

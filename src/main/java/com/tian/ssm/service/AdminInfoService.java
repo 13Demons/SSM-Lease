@@ -11,4 +11,7 @@ public interface AdminInfoService {
 
     AdminInfo loginAdmin(AdminInfo adminInfo);
 
+    List<AdminInfo> findAllRole();
+
+    void delete(Integer adminId);
 }

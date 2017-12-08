@@ -11,67 +11,49 @@
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="enrolldate" jdbcType="TIMESTAMP" property="enrolldate" />
+
+    <association property="adminRole" javaType="AdminRole">
+      <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+      <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    </association>
+
+    <association property="roleInfo" javaType="RoleInfo">
+      <result column="role_id" jdbcType="INTEGER" property="roleId" />
+      <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    </association>
+
+    <association property="moduleInfo" javaType="ModuleInfo">
+      <result column="module_id" jdbcType="INTEGER" property="moduleId" />
+      <result column="module_Name" jdbcType="VARCHAR" property="moduleName" />
+    </association>
+
+
   </resultMap>
-  <insert id="insert" parameterType="com.tian.ssm.bean.AdminInfo">
-    insert into admin_info (admin_id, admin_code, password, 
-      name, telephone, email, 
-      enrolldate)
-    values (#{adminId,jdbcType=INTEGER}, #{adminCode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{enrolldate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tian.ssm.bean.AdminInfo">
-    insert into admin_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="adminId != null">
-        admin_id,
-      </if>
-      <if test="adminCode != null">
-        admin_code,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="enrolldate != null">
-        enrolldate,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="adminId != null">
-        #{adminId,jdbcType=INTEGER},
-      </if>
-      <if test="adminCode != null">
-        #{adminCode,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="enrolldate != null">
-        #{enrolldate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
+
+  <!--登录-->
   <select id="loginAdmin"  resultMap="BaseResultMap">
     SELECT *FROM admin_info WHERE name=#{name}
   </select>
 
+  <!--显示-->
+  <select id="findAllRole"  resultMap="BaseResultMap">
+
+    SELECT * FROM admin_info ad,role_info ro,admin_role ar,module_info m,role_module rm
+        WHERE ar.admin_id = ad.admin_id
+              AND ar.role_id = ro.role_id
+              AND rm.role_id=ro.role_id
+              AND rm.module_id=m.module_id
+  </select>
+
+  <!--修改-->
+  <update id="update">
+
+  </update>
+
+  <!--删除-->
+  <delete id="delete">
+    DELETE FROM admin_info WHERE admin_id=#{adminId}
+  </delete>
 
 </mapper>

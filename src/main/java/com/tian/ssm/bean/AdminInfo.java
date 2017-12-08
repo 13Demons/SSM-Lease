@@ -10,13 +10,9 @@ public class AdminInfo {
 
     private String adminCode;
 
-
-
     private String password;
 
     private String name;
-
-
 
     private String telephone;
 
@@ -24,8 +20,17 @@ public class AdminInfo {
 
     private Date enrolldate;
 
+    private AdminRole adminRole;
+
+    private RoleInfo roleInfo;
+
+    private ModuleInfo moduleInfo;
+
+
+
     public AdminInfo() {
     }
+
 
     public AdminInfo(String name) {
         this.name = name;
@@ -33,6 +38,11 @@ public class AdminInfo {
 
     public AdminInfo(String password, String name) {
         this.password = password;
+        this.name = name;
+    }
+
+    public AdminInfo(Integer adminId, String name) {
+        this.adminId = adminId;
         this.name = name;
     }
 
@@ -56,6 +66,9 @@ public class AdminInfo {
                 ", telephone='" + telephone + '\'' +
                 ", email='" + email + '\'' +
                 ", enrolldate=" + enrolldate +
+                ", adminRole=" + adminRole +
+                ", roleInfo=" + roleInfo +
+                ", moduleInfo=" + moduleInfo +
                 '}';
     }
 
@@ -113,5 +126,29 @@ public class AdminInfo {
 
     public void setEnrolldate(Date enrolldate) {
         this.enrolldate = enrolldate;
+    }
+
+    public AdminRole getAdminRole() {
+        return adminRole;
+    }
+
+    public void setAdminRole(AdminRole adminRole) {
+        this.adminRole = adminRole;
+    }
+
+    public RoleInfo getRoleInfo() {
+        return roleInfo;
+    }
+
+    public void setRoleInfo(RoleInfo roleInfo) {
+        this.roleInfo = roleInfo;
+    }
+
+    public ModuleInfo getModuleInfo() {
+        return moduleInfo;
+    }
+
+    public void setModuleInfo(ModuleInfo moduleInfo) {
+        this.moduleInfo = moduleInfo;
     }
 }
